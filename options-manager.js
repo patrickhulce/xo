@@ -36,8 +36,8 @@ const DEFAULT_CONFIG = {
 	baseConfig: {
 		extends: [
 			'xo',
+			path.join(__dirname, 'config/plugins.js'),
 			path.join(__dirname, 'config/overrides.js'),
-			path.join(__dirname, 'config/plugins.js')
 		]
 	}
 };
