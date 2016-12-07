@@ -1,9 +1,12 @@
 'use strict';
 module.exports = {
+  parser: 'babel-eslint',
+  settings: {'import/resolver': 'webpack'},
   plugins: [
     'react'
   ],
   rules: {
+    'import/order': [2, ['builtin', 'external', 'internal', 'parent', 'sibling', 'index']],
     'react/forbid-component-props': 2,
     'react/no-children-prop': 2,
     'react/no-danger': 2,
