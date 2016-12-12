@@ -6,6 +6,7 @@ module.exports = {
     'react'
   ],
   rules: {
+    'import/no-unassigned-import': 0,
     'import/order': [2, {groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index']}],
     'react/forbid-component-props': 2,
     'react/no-children-prop': 2,
