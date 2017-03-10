@@ -1,6 +1,6 @@
 {
   "name": "xo",
-  "version": "0.17.5-react",
+  "version": "0.17.6-react",
   "description": "JavaScript happiness style linter ❤️",
   "license": "MIT",
   "repository": "sindresorhus/xo",
