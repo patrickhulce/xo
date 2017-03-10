@@ -9,6 +9,7 @@ module.exports = {
     }],
     complexity: ['warn', 10],
     'unicorn/filename-case': ['warn', {case: 'kebabCase'}],
+    'unicorn/explicit-length-check': 0,
     'no-else-return': 0,
     'comma-dangle': ['error', 'always-multiline'],
     'dot-location': ['error', 'property']
