@@ -51,29 +51,30 @@ $ xo --help
     $ xo [<file|glob> ...]
 
   Options
-    --init          Add XO to your project
-    --fix           Automagically fix issues
-    --reporter      Reporter to use
-    --stdin         Validate/fix code from stdin
-    --esnext        Enforce ES2015+ rules
-    --env           Environment preset  [Can be set multiple times]
-    --global        Global variable  [Can be set multiple times]
-    --ignore        Additional paths to ignore  [Can be set multiple times]
-    --space         Use space indent instead of tabs  [Default: 2]
-    --no-semicolon  Prevent use of semicolons
-    --plugin        Include third-party plugins  [Can be set multiple times]
-    --extend        Extend defaults with a custom config  [Can be set multiple times]
-    --open          Open files with issues in your editor
-    --quiet         Show only errors and no warnings
-    --extension     Additional extension to lint [Can be set multiple times]
+    --init            Add XO to your project
+    --fix             Automagically fix issues
+    --reporter        Reporter to use
+    --env             Environment preset  [Can be set multiple times]
+    --global          Global variable  [Can be set multiple times]
+    --ignore          Additional paths to ignore  [Can be set multiple times]
+    --space           Use space indent instead of tabs  [Default: 2]
+    --no-semicolon    Prevent use of semicolons
+    --plugin          Include third-party plugins  [Can be set multiple times]
+    --extend          Extend defaults with a custom config  [Can be set multiple times]
+    --open            Open files with issues in your editor
+    --quiet           Show only errors and no warnings
+    --extension       Additional extension to lint [Can be set multiple times]
+    --no-esnext       Don't enforce ES2015+ rules
+    --stdin           Validate/fix code from stdin
+    --stdin-filename  Specify a filename for the --stdin option
 
   Examples
     $ xo
     $ xo index.js
     $ xo *.js !foo.js
-    $ xo --esnext --space
+    $ xo --space
     $ xo --env=node --env=mocha
-    $ xo --init --esnext
+    $ xo --init --space
     $ xo --plugin=react
     $ xo --plugin=html --extension=html
     $ echo 'const x=true' | xo --stdin --fix
@@ -145,21 +146,12 @@ You can configure some options in XO by putting it in package.json:
 {
   "name": "awesome-package",
   "xo": {
-    "esnext": true
+    "space": true
   }
 }
 ```
 
 [Globals](http://eslint.org/docs/user-guide/configuring#specifying-globals) and [rules](http://eslint.org/docs/user-guide/configuring#configuring-rules) can be configured inline in files.
-
-### esnext
-
-Type: `boolean`<br>
-Default: `false`
-
-Enforce ES2015+ rules. Enabling this will *prefer* ES2015+ syntax and conventions.
-
-*ES2015+ is parsed even without this option. You can already use ES2017 features like [`async`/`await`](https://github.com/lukehoban/ecmascript-asyncawait).
 
 ### envs
 
@@ -234,6 +226,15 @@ Type: `string`
 
 ESLint parser. For example, [`babel-eslint`](https://github.com/babel/babel-eslint) if you're using language features that ESLint doesn't yet support.
 
+### esnext
+
+Type: `boolean`<br>
+Default: `true`
+
+Enforce ES2015+ rules. Disabling this will make it not *enforce* ES2015+ syntax and conventions.
+
+*ES2015+ is parsed even without this option. You can already use ES2017 features like [`async`/`await`](https://github.com/lukehoban/ecmascript-asyncawait).
+
 
 ## Config Overrides
 
@@ -247,12 +248,12 @@ XO makes it easy to override configs for specific files. The `overrides` propert
     "overrides": [
       {
         "files": "test/*.js",
-        "esnext": true,
+        "esnext": false,
         "space": 3
       },
       {
          "files": "test/foo.js",
-         "esnext": false
+         "esnext": true
       }
     ]
   }
@@ -261,11 +262,11 @@ XO makes it easy to override configs for specific files. The `overrides` propert
 
 - The base configuration is simply `space: 2`, `semicolon: false`. These settings are used for every file unless otherwise noted below.
 
-- For every file in `test/*.js`, the base config is used, but `space` is overridden with `3`, and the `esnext` option is set to `true`. The resulting config is:
+- For every file in `test/*.js`, the base config is used, but `space` is overridden with `3`, and the `esnext` option is set to `false`. The resulting config is:
 
 ```json
 {
-  "esnext": true,
+  "esnext": false,
   "semicolon": false,
   "space": 3
 }
@@ -275,7 +276,7 @@ XO makes it easy to override configs for specific files. The `overrides` propert
 
 ```json
 {
-  "esnext": false,
+  "esnext": true,
   "semicolon": false,
   "space": 3
 }
@@ -308,27 +309,10 @@ XO is based on ESLint. This project started out as just a shareable ESLint confi
 
 - [Sublime Text](https://github.com/sindresorhus/SublimeLinter-contrib-xo)
 - [Atom](https://github.com/sindresorhus/atom-linter-xo)
+- [Vim](https://github.com/sindresorhus/vim-xo)
 - [TextMate 2](https://github.com/claylo/XO.tmbundle)
 - [VSCode](https://github.com/SamVerschueren/vscode-linter-xo)
 - [Emacs](https://github.com/j-em/xo-emacs)
-
-#### Vim
-
-You can use [Syntastic](https://github.com/scrooloose/syntastic)'s ESLint checker with the following settings in your `.vimrc` file:
-
-```vim
-let g:syntastic_javascript_eslint_generic = 1
-let g:syntastic_javascript_eslint_exec = 'xo'
-let g:syntastic_javascript_eslint_args = '--reporter=compact'
-let g:syntastic_javascript_checkers = ['eslint']
-```
-
-You can also use [vim-autoformat](https://github.com/Chiel92/vim-autoformat) to format your code with XO, using the following settings in your `.vimrc` file:
-
-```vim
-let g:formatdef_xo = '"xo --fix --stdin"'
-let g:formatters_javascript = ['xo']
-```
 
 
 ## Build-system plugins
