@@ -11,6 +11,7 @@ module.exports = {
     'unicorn/filename-case': ['warn', {case: 'kebabCase'}],
     'unicorn/explicit-length-check': 0,
     'no-else-return': 0,
+    'one-var': ['error', {initialized: 'never', uninitialized: 'always'}],
     'comma-dangle': ['error', 'always-multiline'],
     'dot-location': ['error', 'property']
   }
